@@ -1,0 +1,119 @@
+#include <iostream>
+#include <stdio.h>
+#include<fstream>
+#include<string.h>
+#include<string>
+using namespace std;
+
+
+struct client {
+    int id;
+    string name;
+    string time;
+    client() {
+        id = -1;
+    }
+};
+
+void words() {
+    cout << "\t \t Welcome to the Management system for a cafe \n";
+    cout << "1) Add new client.\n";
+    cout << "2) Update client.\n";
+    cout << "3) Delete client.\n";
+    cout << "4) Show all clients attended the cafe.\n";
+    cout << "5)exit the program.\n";
+    cout << "  Please chose one from above choices:\n";
+}
+
+void RunAgain() {
+    cout << "Do you want to run again?  press zero to terminate the program or any number to continue the program...\n";
+    int i; cin >> i;
+    if (i == 0)exit(0);
+}
+
+
+int main()
+{
+
+    int in, nid, counter = 0, i;
+    bool arr[100 + 9];
+    for (int x = 0;x < 100; x++)arr[x] = false;
+    string ntime;
+    string nname;
+    client c[100];
+    while (true)
+    {
+        words();
+        cin >> in;
+        switch (in)
+        {
+        case 1:
+            ++counter;
+            if (counter == 100) {
+                cout << "Error you exceeded the maximum number of clients";
+                break;
+            }
+            cout << "please enter the id of the client entered the cafe\n";
+            cin >> nid;
+            if (arr[nid]) { cout << "Error there is a client with this id";break; }
+            arr[nid] = true;
+            cout << "Please enter the time the client entered the cafe \n";
+            cin >> ntime;
+            cout << "Please enter the time the client’s name:";
+            cin >> nname;
+            c[nid].id = nid;
+            c[nid].time = ntime;
+            c[nid].name = nname;
+            break;
+        case 2:
+            cout << "            Welcome user." << endl;
+            cout << "Please enter the id of the client to update\n";
+            cin >> nid;
+            if (!arr[nid]) { cout << "Error there is no client with this id"; break; }
+            cout << "Please enter the time the client entered the cafe \n";
+            cin >> ntime;
+            cout << "Please enter the client’s name:";
+            cin >> nname;
+            c[nid].id = nid;
+            c[nid].time = ntime;
+            c[nid].name = nname;
+            break;
+        case 3:
+
+            cout << "            Welcome user." << endl;
+            cout << "Please enter the id of the client to delete: " << endl;
+            cin >> nid;
+            if (!arr[nid]) { cout << "there is no client with this ID\n";break; }
+            arr[nid] = false;
+            cout << "Deleted successfully ";
+            counter--;
+            break;
+
+        case 4:
+            cout << "            Welcome user." << endl;
+            cout << "The summary of clients visited the cafe today:\n" << endl;
+            if (counter == 0) cout << "No data to show\n";
+
+
+            for (i = 0; i < 100; i++)
+            {
+                if (arr[i])
+                    cout << "the ID of visitor " << c[i].id << " he visited at " << c[i].time << " his name is " << c[i].name << " visited the cafe " << endl;
+            }
+            break;
+
+        case 5:
+
+            cout << "End of Program.\n";
+            return 0;
+
+        default:
+            cout << "Not a Valid Choice. \n";
+            cout << "Choose again.\n";
+            break;
+
+        }
+        RunAgain();
+    }
+    return 0;
+}
